@@ -500,6 +500,10 @@ export function BetterRolls() {
 		let item = actor ? actor.items.find(i => i.name === itemName) : null;
 		if (!actor) { return ui.notifications.warn(`${i18n("br5e.error.noSelectedActor")}`); }
 		else if (!item) { return ui.notifications.warn(`${actor.name} ${i18n("br5e.error.noKnownItemOnActor")} ${itemName}`); }
+		
+		
+		if(item.hasMacro())
+			return item.executeMacro();
 		return item.roll({ vanilla: false, event });
 	};
 
@@ -510,6 +514,10 @@ export function BetterRolls() {
 		let item = actor.getOwnedItem(itemId);
 		if (!item) { return ui.notifications.warn(`${i18n("br5e.error.noItemWithId")}`); }
 		if (actor.permission != 3) { return ui.notifications.warn(`${i18n("br5e.error.noActorPermission")}`); }
+		
+		
+		if(item.hasMacro())
+			return item.executeMacro();
 		return item.roll({ vanilla: false, event });
 	};
 
@@ -520,6 +528,9 @@ export function BetterRolls() {
 		let item = actor.items.find(i => i.name === itemName);
 		if (!item) { return ui.notifications.warn(`${actor.name} ${i18n("br5e.error.noKnownItemOnActor")} ${itemName}`); }
 		if (actor.permission != 3) { return ui.notifications.warn(`${i18n("br5e.error.noActorPermission")}`); }
+
+		if(item.hasMacro())
+			return item.executeMacro();
 		return item.roll({ vanilla: false, event });
 	};
 
